@@ -1,0 +1,9 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#E8F5E9", "primaryBorderColor": "#1B5E20", "primaryTextColor": "#1B3A1F",
+    "secondaryColor": "#F2F4F2", "tertiaryColor": "#FFFFFF", "lineColor": "#3F6B45", "textColor": "#1B3A1F",
+    "fontFamily": "DejaVu Sans, Arial, sans-serif", "fontSize": "26px"
+  },
+  "flowchart": { "curve": "basis", "padding": 14, "nodeSpacing": 35, "rankSpacing": 45 }
+}

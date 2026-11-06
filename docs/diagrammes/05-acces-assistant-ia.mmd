@@ -1,0 +1,31 @@
+sequenceDiagram
+  autonumber
+  actor CON as Conseiller
+  participant APP as Interface de l'assistant
+  participant IDP as Authentification<br/>SSO et MFA
+  participant API as API sécurisée<br/>de Verdalia
+  participant POL as Contrôle d'accès<br/>rôle, magasin, contexte
+  participant CAT as Données produits<br/>validées
+  participant ERP as ERP<br/>stock récent
+  participant LLM as Modèle IA<br/>prestataire
+  participant LOG as Journal<br/>proportionné
+
+  CON->>APP: Question sur un produit ou un stock
+  APP->>IDP: Authentifier le conseiller
+  IDP-->>APP: Identité et rôle confirmés
+  APP->>API: Demande avec jeton
+  API->>POL: Autorisation pour ce rôle et ce magasin
+  POL-->>API: Périmètre autorisé
+  API->>API: Contrôle d'entrée<br/>anti-injection, minimisation
+  API->>CAT: Lecture des fiches produits validées
+  API->>ERP: Lecture du stock récent, lecture seule
+  API->>LLM: Requête minimale<br/>sans identité client
+  LLM-->>API: Suggestion
+  API->>API: Contrôle de sortie<br/>sources citées, données interdites filtrées
+  API-->>APP: Suggestion, sources, mention IA
+  opt Historique client nécessaire et autorisé
+    API-->>APP: Historique limité, affiché au conseiller<br/>jamais transmis au modèle
+  end
+  APP-->>CON: Réponse à vérifier
+  CON->>CON: Vérification humaine et décision
+  API->>LOG: Trace de la requête, du rôle, des sources

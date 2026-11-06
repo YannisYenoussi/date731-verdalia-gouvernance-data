@@ -1,0 +1,30 @@
+gantt
+  title Trajectoire de déploiement sur 12 mois (date de démarrage fictive, à ajuster)
+  dateFormat YYYY-MM-DD
+  axisFormat M%m
+  tickInterval 1month
+
+  section Phase 1 - cadrage (M1-M2)
+  Inventaire des sources et des flux        :p1a, 2027-01-01, 6w
+  Gouvernance initiale et rôles             :p1b, 2027-01-01, 8w
+  Glossaire KPI provisoire                  :p1c, 2027-02-01, 4w
+  Jalon J1 - cadrage validé                 :milestone, j1, 2027-02-26, 0d
+
+  section Phase 2 - socle data (M3-M6)
+  Ingestion et zone de préparation          :p2a, 2027-03-01, 10w
+  Référentiel MDM client v1                 :p2b, 2027-03-15, 12w
+  Data Warehouse et modèle en étoile        :p2c, 2027-04-01, 12w
+  Premiers KPI certifiés et tableaux de bord:p2d, 2027-05-17, 6w
+  Jalon J2 - socle opérationnel à 6 mois    :milestone, j2, 2027-06-25, 0d
+
+  section Phase 3 - sécurisation et IA pilote (M7-M9)
+  Droits d'accès et journalisation          :p3a, 2027-07-05, 8w
+  Registre, AIPD, contrats prestataire      :p3b, 2027-07-05, 10w
+  API sécurisée et assistant IA, recette    :p3c, 2027-07-19, 10w
+  Jalon J3 - pilote autorisé                :milestone, j3, 2027-09-24, 0d
+
+  section Phase 4 - expérimentation et bilan (M10-M12)
+  Pilote dans 2 magasins                    :p4a, 2027-10-04, 8w
+  Corrections et ajustements                :p4b, 2027-10-18, 8w
+  Bilan et décision d'extension             :p4c, 2027-11-29, 4w
+  Jalon J4 - bilan à 12 mois                :milestone, j4, 2027-12-24, 0d

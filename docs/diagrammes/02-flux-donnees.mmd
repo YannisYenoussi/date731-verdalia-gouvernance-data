@@ -1,0 +1,43 @@
+flowchart LR
+  subgraph SRC["Sources"]
+    direction TB
+    ERP["ERP"]
+    CAI["Caisses<br/>14 magasins"]
+    WEB["E-commerce"]
+    CRM["CRM fidélité"]
+    XLS["Excel déclarés"]
+  end
+
+  subgraph LAND["Zone d'atterrissage"]
+    direction TB
+    RAW["Données brutes<br/>conservation courte<br/>pour audit"]
+    QUA["Quarantaine<br/>lots rejetés<br/>30 jours maximum"]
+  end
+
+  STG["Zone validée<br/>formats, doublons<br/>cohérence"]
+  MDM["MDM client<br/>identifiant unique"]
+  DWH["Data Warehouse<br/>dimensions et faits"]
+  KPI["Couche métier<br/>KPI certifiés"]
+
+  ERP -->|"quotidien, incrémental"| RAW
+  CAI -->|"fin de journée, par magasin"| RAW
+  WEB -->|"horaire, incrémental"| RAW
+  CRM -->|"quotidien, incrémental"| RAW
+  XLS -->|"dépôt hebdomadaire<br/>modèle imposé"| RAW
+
+  RAW --> STG
+  STG -->|"lot non conforme"| QUA
+  QUA -->|"correction par le Data Steward<br/>puis rechargement"| STG
+  STG -->|"données clients"| MDM
+  STG -->|"ventes, stocks, produits"| DWH
+  MDM -->|"identifiant client"| DWH
+  DWH --> KPI
+
+  classDef src fill:#F2F4F2,stroke:#8A9A8C,color:#1B3A1F;
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef key fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  classDef warn fill:#FFFFFF,stroke:#8A9A8C,color:#1B3A1F,stroke-dasharray: 4 3;
+  class ERP,CAI,WEB,CRM,XLS src;
+  class RAW,STG,KPI core;
+  class MDM,DWH key;
+  class QUA warn;

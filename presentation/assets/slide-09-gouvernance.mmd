@@ -1,0 +1,13 @@
+flowchart TD
+  DG["Sponsor<br/>Direction générale"] --> CGD["Comité de<br/>gouvernance Data"]
+  CGD --> DO["Data Owners<br/>décident"]
+  CGD --> PF["Plateforme data<br/>exploite"]
+  CGD --> DSI["DSI et RSSI<br/>sécurisent"]
+  DO --> DS["Data Stewards<br/>corrigent"]
+  DPO["DPO<br/>conseille, contrôle"] -.-> CGD
+  classDef top fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef grey fill:#F2F4F2,stroke:#8A9A8C,color:#1B3A1F;
+  class DG,CGD top;
+  class DO,PF,DSI,DS core;
+  class DPO grey;

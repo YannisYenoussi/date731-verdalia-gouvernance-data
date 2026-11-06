@@ -1,0 +1,27 @@
+flowchart TD
+  A["Fiche client entrante<br/>caisse, e-commerce, CRM"] --> B["Normalisation<br/>casse, accents, téléphone, e-mail"]
+  B --> C{"Identifiant existant<br/>dans la table de correspondance ?"}
+  C -->|"oui"| U["Mise à jour de la fiche maître<br/>règles de survie par attribut"]
+  C -->|"non"| D["Règles déterministes<br/>n° de carte ou e-mail identique"]
+  D --> E{"Correspondance<br/>certaine ?"}
+  E -->|"oui"| F["Rattachement automatique<br/>à l'identifiant existant"]
+  E -->|"non"| G["Score de similarité<br/>nom, naissance, code postal, téléphone"]
+  G --> H{"Score"}
+  H -->|"supérieur au seuil haut"| F
+  H -->|"entre les deux seuils"| R["File de revue<br/>Data Steward Client"]
+  H -->|"inférieur au seuil bas"| N["Création d'un nouvel<br/>identifiant client unique"]
+  R --> V{"Décision humaine"}
+  V -->|"même personne"| F
+  V -->|"personnes distinctes"| N
+  V -->|"doute persistant"| P["Fiches laissées séparées<br/>nouvel examen planifié"]
+  F --> J["Journal de fusion<br/>qui, quand, règle, score<br/>fusion réversible"]
+  N --> J
+  U --> J
+  J --> S["Synchronisation contrôlée<br/>identifiant vers les sources<br/>corrections validées uniquement"]
+
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef key fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  classDef human fill:#FFFFFF,stroke:#1B5E20,color:#1B3A1F,stroke-width:2px;
+  class A,B,D,G,U,F,N,J,P core;
+  class S key;
+  class R,V human;

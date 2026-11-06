@@ -1,0 +1,31 @@
+# Systèmes et éditeurs
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Fichiers temporaires de Word, LibreOffice et PowerPoint
+~$*
+.~lock.*
+*.tmp
+*.bak
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node et outils de génération
+node_modules/
+
+# Sorties de génération intermédiaires
+build/
+.build/
+scripts/_tmp/
+
+# Secrets
+.env
+*.key
+*.pem

@@ -1,0 +1,40 @@
+flowchart TD
+  DG["Sponsor<br/>Direction générale<br/>représente le responsable de traitement"]
+  CGD["Comité de gouvernance Data<br/>réunion mensuelle<br/>arbitrage, validation des règles"]
+
+  subgraph PIL["Pilotage et plateforme"]
+    direction LR
+    PF["Responsable de la plateforme data<br/>ingestion, MDM, Warehouse"]
+    DSI["DSI et RSSI<br/>sécurité, accès, incidents"]
+  end
+
+  DPO["DPO<br/>conseil et contrôle RGPD<br/>indépendant"]
+
+  subgraph DOM["Domaines de données"]
+    direction LR
+    DOC["Data Owner Client<br/>et fidélité"]
+    DOV["Data Owner Ventes<br/>et magasins"]
+    DOP["Data Owner Produits<br/>et stocks"]
+    DOF["Data Owner Finance<br/>valide les KPI financiers"]
+    DOE["Data Owner<br/>E-commerce"]
+  end
+
+  DS["Data Stewards<br/>un par domaine<br/>qualité et corrections au quotidien"]
+  UM["Utilisateurs métiers<br/>magasins, marketing, finance, direction"]
+
+  DG --> CGD
+  CGD --> PF
+  CGD --> DSI
+  CGD --> DOM
+  DOM --> DS
+  DS --> UM
+  PF --> UM
+  DPO -.->|"avis et alertes"| CGD
+  DPO -.->|"accès direct"| DG
+
+  classDef top fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef grey fill:#F2F4F2,stroke:#8A9A8C,color:#1B3A1F;
+  class DG,CGD top;
+  class PF,DSI,DOC,DOV,DOP,DOF,DOE,DS core;
+  class DPO,UM grey;

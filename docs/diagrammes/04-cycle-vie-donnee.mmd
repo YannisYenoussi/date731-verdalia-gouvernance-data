@@ -1,0 +1,17 @@
+flowchart LR
+  C1["1. Collecte<br/>finalité définie<br/>information de la personne<br/>consentement si requis"]
+  C2["2. Stockage<br/>zone selon la classification<br/>chiffrement, droits par profil"]
+  C3["3. Traitement<br/>contrôles qualité<br/>rapprochement MDM<br/>journalisation"]
+  C4["4. Analyse et utilisation<br/>KPI certifiés, marketing<br/>assistant IA via API"]
+  C5["5. Archivage ou destruction<br/>durée justifiée<br/>anonymisation ou effacement"]
+
+  C1 --> C2 --> C3 --> C4 --> C5
+  C4 -.->|"droits des personnes<br/>rectification, opposition, effacement"| C3
+  C5 -.->|"preuve de destruction<br/>ou d'anonymisation"| PR["Registre et journaux<br/>preuves de conformité"]
+
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef key fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  classDef grey fill:#F2F4F2,stroke:#8A9A8C,color:#1B3A1F;
+  class C1,C2,C3,C4 core;
+  class C5 key;
+  class PR grey;

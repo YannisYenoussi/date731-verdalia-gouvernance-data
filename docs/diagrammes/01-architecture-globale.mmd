@@ -1,0 +1,42 @@
+flowchart TB
+  ERP["ERP<br/>catalogue, stocks, achats"]
+  CAI["Caisses magasins<br/>tickets de vente"]
+  WEB["Site e-commerce<br/>commandes, comptes"]
+  CRM["CRM fidélité<br/>profils, consentements"]
+  XLS["Excel maîtrisés<br/>fichiers déclarés"]
+
+  ING["1. Ingestion<br/>ELT incrémental<br/>erreurs, journal"]
+  PREP["2. Préparation<br/>contrôles, doublons<br/>quarantaine"]
+  MDM["3. MDM client<br/>identifiant unique"]
+  DWH["4. Data Warehouse<br/>faits et dimensions"]
+  MET["5. Couche métier<br/>glossaire, KPI certifiés<br/>contrôle d'accès"]
+
+  BI["Tableaux de bord<br/>direction, magasins"]
+  MKT["Marketing<br/>sous conditions RGPD"]
+  API["API sécurisée<br/>authentification, droits"]
+  IA["Assistant IA interne<br/>pilote 2 magasins"]
+
+  ERP --> ING
+  CAI --> ING
+  WEB --> ING
+  CRM --> ING
+  XLS --> ING
+  ING --> PREP
+  PREP --> MDM
+  PREP --> DWH
+  MDM -->|"identifiant client<br/>sans identité directe"| DWH
+  DWH --> MET
+  MET --> BI
+  MET -->|"segments, filtre<br/>de consentement"| MKT
+  MET -->|"produits validés"| API
+  API --> IA
+  ERP -.->|"stock récent<br/>lecture seule"| API
+  MDM -.->|"historique limité<br/>pour le conseiller"| API
+  MDM -.->|"corrections validées<br/>synchronisation contrôlée"| CRM
+
+  classDef src fill:#F2F4F2,stroke:#8A9A8C,color:#1B3A1F;
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef key fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  class ERP,CAI,WEB,CRM,XLS src;
+  class ING,PREP,MET,BI,MKT,IA core;
+  class MDM,DWH,API key;

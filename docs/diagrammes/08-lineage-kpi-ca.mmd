@@ -1,0 +1,26 @@
+flowchart LR
+  T["Ticket de caisse<br/>magasin, date, lignes<br/>montants HT et TTC"]
+  X["Extraction<br/>lot n° et horodatage<br/>journal d'ingestion"]
+  W["Zone brute<br/>copie fidèle du lot"]
+  V{"Validation<br/>formats, doublons<br/>totaux cohérents"}
+  Q["Quarantaine<br/>correction par le Data Steward"]
+  TR["Transformation<br/>rattachement produit, magasin, date<br/>exclusion des tickets annulés"]
+  F["Table de faits<br/>fait_ventes_ligne"]
+  C["Calcul du CA HT net<br/>règle v1.0 du glossaire"]
+  K["KPI certifié<br/>CA HT net par magasin et par jour"]
+  D["Tableau de bord<br/>direction et magasins"]
+
+  T --> X --> W --> V
+  V -->|"conforme"| TR
+  V -->|"non conforme"| Q
+  Q -->|"rechargement"| V
+  TR --> F --> C --> K --> D
+
+  classDef src fill:#F2F4F2,stroke:#8A9A8C,color:#1B3A1F;
+  classDef core fill:#E8F5E9,stroke:#1B5E20,color:#1B3A1F;
+  classDef key fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF;
+  classDef human fill:#FFFFFF,stroke:#1B5E20,color:#1B3A1F,stroke-width:2px;
+  class T src;
+  class X,W,TR,F,C core;
+  class K,D key;
+  class V,Q human;
